@@ -10,4 +10,9 @@ public interface View {
      * Clears this.
      */
     void clear();
+
+    /**
+     * Closes this.
+     */
+    void close();
 }

@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class BoardView extends Scene implements View {
 
@@ -29,6 +30,11 @@ public class BoardView extends Scene implements View {
         Platform.runLater(() -> {
             gridPane.getChildren().clear();
         });
+    }
+
+    @Override
+    public void close() {
+        Platform.runLater(() -> ((Stage) getWindow()).close());
     }
 
     public ImageView[][] getImageViews() {

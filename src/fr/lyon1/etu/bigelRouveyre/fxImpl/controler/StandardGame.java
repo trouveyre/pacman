@@ -1,5 +1,6 @@
 package fr.lyon1.etu.bigelRouveyre.fxImpl.controler;
 
+import fr.lyon1.etu.bigelRouveyre.fxImpl.model.ImpactType;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardGameResult;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardPlayerResult;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.view.ActorPicture;
@@ -79,13 +80,17 @@ public class StandardGame implements Game {
         isRunning = false;
     }
 
+    public boolean isWonOrLost() {
+        return board.getActors().stream().noneMatch(actor -> actor.getImpact() == ImpactType.Feed) ||
+                players.stream().noneMatch(player -> player instanceof LocalPlayer);
+    }
     @Override
     public final GameResult launch() {
         isRunning = true;
-        while (!hasToEnd) {
+        while (!(hasToEnd || isWonOrLost())) {
             try {
                 Thread.sleep(500);
-                while (isRunning) {
+                while (isRunning && !isWonOrLost()) {
                     try {
                         time ++;
                         nextTurn();
@@ -107,6 +112,7 @@ public class StandardGame implements Game {
                 ie.printStackTrace();
             }
         }
+        view.close();
         return result;
     }
     /**
