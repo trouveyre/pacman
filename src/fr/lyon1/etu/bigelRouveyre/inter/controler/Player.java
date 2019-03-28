@@ -33,6 +33,11 @@ public interface Player {
     Actor getActor();
 
     /**
+     * @return the name of this
+     */
+    String getName();
+
+    /**
      * @return the results or null if this has not finished
      */
     PlayerResult getResult();

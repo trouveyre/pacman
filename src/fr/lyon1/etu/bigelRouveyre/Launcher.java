@@ -1,5 +1,6 @@
 package fr.lyon1.etu.bigelRouveyre;
 
+import fr.lyon1.etu.bigelRouveyre.fxImpl.controler.BasePlayer;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.controler.LocalPlayer;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.controler.RandomPlayer;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.controler.StandardGame;
@@ -48,10 +49,10 @@ public class Launcher extends Application {
         Actor actor2 = StandardActor.ghost(board);
         Actor actor3 = StandardActor.ghost(board);
         Player[] players = new Player[] {
-                new LocalPlayer(actor0, "q", "z", "d", "s"),
-                new RandomPlayer(actor1, 0, 0, 15, 15),
-                new RandomPlayer(actor2, 0, 0, 15, 15),
-                new RandomPlayer(actor3, 0, 0, 15, 15)
+                new LocalPlayer(BasePlayer.randomName(), actor0, "q", "z", "d", "s"),
+                new RandomPlayer(BasePlayer.randomName(), actor1, 0, 0, 15, 15),
+                new RandomPlayer(BasePlayer.randomName(), actor2, 0, 0, 15, 15),
+                new RandomPlayer(BasePlayer.randomName(), actor3, 0, 0, 15, 15)
         };
         board.initiate(new RandomPacmanInitiator(players, 10));
         Game game = new StandardGame(board, players);
@@ -66,6 +67,6 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.show();
 
-        new Thread(() -> game.launch()).start();
+        new Thread(() -> System.out.println(game.launch())).start();
     }
 }

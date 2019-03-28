@@ -32,4 +32,9 @@ public class StandardPlayerResult implements PlayerResult {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public String toString() {
+        return player.getName() + " has " + (time==0? "won the game": "lost at turn " + time) + " with " + score + " points";
+    }
 }

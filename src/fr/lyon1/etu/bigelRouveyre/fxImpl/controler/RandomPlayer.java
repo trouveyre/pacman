@@ -8,13 +8,14 @@ public class RandomPlayer extends BasePlayer {
 
     //CONSTRUCTORS
     public RandomPlayer(
+            String name,
             Actor actor,
             int xLeftTopActionZoneCorner,
             int yLeftTopActionZoneCorner,
             int xRightBottomActionZoneCorner,
             int yRightBottomActionZoneCorner
     ) {
-        super(actor);
+        super(name, actor);
         actionZone[0] = xLeftTopActionZoneCorner;
         actionZone[1] = yLeftTopActionZoneCorner;
         actionZone[2] = xRightBottomActionZoneCorner - actionZone[0];

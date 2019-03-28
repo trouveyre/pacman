@@ -5,8 +5,8 @@ import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 public class LocalPlayer extends BasePlayer {
 
     //CONSTRUCTORS
-    public LocalPlayer(Actor actor, String leftKey, String upKey, String rightKey, String downKey) {
-        super(actor);
+    public LocalPlayer(String name, Actor actor, String leftKey, String upKey, String rightKey, String downKey) {
+        super(name, actor);
         getShortcuts().put(leftKey, (coordinates) -> new int[] {coordinates[0], -100});
         getShortcuts().put(upKey, (coordinates) -> new int[] {-100, coordinates[1]});
         getShortcuts().put(rightKey, (coordinates) -> new int[] {coordinates[0], 100});

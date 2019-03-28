@@ -112,6 +112,10 @@ public class StandardGame implements Game {
                 ie.printStackTrace();
             }
         }
+        players.forEach(player -> {
+            player.setResult(new StandardPlayerResult(player, 0, 0));
+            result.getPlayers().add(player);
+        });
         view.close();
         return result;
     }
@@ -131,4 +135,9 @@ public class StandardGame implements Game {
     public final void pause() { isRunning = false; }
     @Override
     public final void resume() { isRunning = true; }
+
+    @Override
+    public String toString() {
+        return "Game (" + players.size() + " players)";
+    }
 }

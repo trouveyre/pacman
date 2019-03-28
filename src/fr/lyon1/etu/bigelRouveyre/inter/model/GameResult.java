@@ -18,7 +18,17 @@ public interface GameResult {
     Game getGame();
 
     /**
+     * @return the {@link Actor}s who have lost
+     */
+    List<Player> getLosers();
+
+    /**
      * @return the {@link Player}s of the {@link Game}
      */
     List<Player> getPlayers();
+
+    /**
+     * @return the {@link Actor}s who have won
+     */
+    List<Player> getWinner();
 }

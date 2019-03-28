@@ -11,13 +11,15 @@ import java.util.function.Function;
 public abstract class BasePlayer implements Player {
 
     //CONSTRUCTORS
-    public BasePlayer(Actor actor) {
+    public BasePlayer(String name, Actor actor) {
         this.actor = actor;
+        this.name = name;
     }
 
     //FIELDS
     private Actor actor;
     boolean isAllow = true;
+    private String name;
     private PlayerResult result = null;
     private Map<String, Function<int[], int[]>> shortcuts = new HashMap();
 
@@ -44,6 +46,11 @@ public abstract class BasePlayer implements Player {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public PlayerResult getResult() {
         return result;
     }
@@ -61,4 +68,8 @@ public abstract class BasePlayer implements Player {
      * Executed if allowed when drive is called.
      */
     protected abstract void onDrive();
+
+    public static String randomName() {
+        return "Player" + (int) (Math.random() * 100);
+    }
 }
