@@ -2,6 +2,7 @@ package fr.lyon1.etu.bigelRouveyre.fxImpl.controler;
 
 import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardGameResult;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardPlayerResult;
+import fr.lyon1.etu.bigelRouveyre.fxImpl.view.ActorPicture;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.view.BoardView;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Game;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
@@ -20,11 +21,19 @@ public class StandardGame implements Game {
         this.players = new ArrayList();
         for (Player player : players) this.players.add(player);
         view = new BoardView(board.getWidth(), board.getHeight());
-        view.setOnKeyTyped((event) -> {
-            this.players.stream().filter(player -> !player.getActor().isDead()).forEach(player -> {
-                player.onCommand(event.getCharacter().charAt(0));
-            });
-        });
+        view.setOnKeyTyped(event ->
+            this.players.stream().filter(player -> !player.getActor().isDead()).forEach(player ->
+                player.onCommand(event.getCharacter())
+            )
+        );
+        view.setOnMouseClicked(event ->
+                this.players.stream().filter(player -> !player.getActor().isDead()).forEach(player ->
+                        player.onClick(
+                                event.getX() - board.getWidth() * (double) ActorPicture.SIZE / 2,
+                                event.getY() - board.getHeight() * (double) ActorPicture.SIZE / 2
+                        )
+                )
+        );
     }
 
     //FIELDS

@@ -42,5 +42,8 @@ public class RandomPlayer extends BasePlayer {
     }
 
     @Override
-    public void onCommand(Character command) {}
+    public void onClick(double x, double y) {}
+
+    @Override
+    public void onCommand(String command) {}
 }

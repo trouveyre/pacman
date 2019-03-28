@@ -48,7 +48,7 @@ public class Launcher extends Application {
         Actor actor2 = StandardActor.ghost(board);
         Actor actor3 = StandardActor.ghost(board);
         Player[] players = new Player[] {
-                new LocalPlayer(actor0, 'q', 'z', 'd', 's'),
+                new LocalPlayer(actor0, "q", "z", "d", "s"),
                 new RandomPlayer(actor1, 0, 0, 15, 15),
                 new RandomPlayer(actor2, 0, 0, 15, 15),
                 new RandomPlayer(actor3, 0, 0, 15, 15)

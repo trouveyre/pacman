@@ -46,11 +46,18 @@ public interface Player {
      * The players shortcuts.
      * @return a map with {@link Character} as key and coordinates of case to move as value.
      */
-    Map<Character, Function<int[], int[]>> getShortcuts();
+    Map<String, Function<int[], int[]>> getShortcuts();
+
+    /**
+     * Called when a mouse button is clicked.
+     * @param x the x coordinate of the mouse's cursor
+     * @param y the y coordinate of the mouse's cursor
+     */
+    void onClick(double x, double y);
 
     /**
      * Called when a command is entered.
      * @param command the command executing
      */
-    void onCommand(Character command);
+    void onCommand(String command);
 }

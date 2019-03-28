@@ -19,7 +19,7 @@ public abstract class BasePlayer implements Player {
     private Actor actor;
     boolean isAllow = true;
     private PlayerResult result = null;
-    private Map<Character, Function<int[], int[]>> shortcuts = new HashMap();
+    private Map<String, Function<int[], int[]>> shortcuts = new HashMap();
 
     //METHODS
     @Override
@@ -53,7 +53,7 @@ public abstract class BasePlayer implements Player {
     }
 
     @Override
-    public Map<Character, Function<int[], int[]>> getShortcuts() {
+    public Map<String, Function<int[], int[]>> getShortcuts() {
         return shortcuts;
     }
 
