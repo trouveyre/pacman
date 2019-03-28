@@ -1,34 +1,40 @@
 package fr.lyon1.etu.bigelRouveyre.fxImpl.controler;
 
+import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardGameResult;
+import fr.lyon1.etu.bigelRouveyre.fxImpl.model.StandardPlayerResult;
 import fr.lyon1.etu.bigelRouveyre.fxImpl.view.BoardView;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Game;
-import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
 import fr.lyon1.etu.bigelRouveyre.inter.model.GameResult;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
+import fr.lyon1.etu.bigelRouveyre.inter.model.PlayerResult;
 import fr.lyon1.etu.bigelRouveyre.inter.view.View;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class StandardGame implements Game {
 
     //CONSTRUCTORS
     public StandardGame(Board board, Player[] players) {
         this.board = board;
-        this.players = players;
+        this.players = new ArrayList();
+        for (Player player : players) this.players.add(player);
         view = new BoardView(board.getWidth(), board.getHeight());
         view.setOnKeyTyped((event) -> {
-            for (Player player : this.players) player.onCommand(event.getCharacter().charAt(0));
+            this.players.stream().filter(player -> !player.getActor().isDead()).forEach(player -> {
+                player.onCommand(event.getCharacter().charAt(0));
+            });
         });
     }
 
     //FIELDS
     private Board board;
-    private ArrayList<Actor> deadActors = new ArrayList();  // TODO
+    private HashSet<PlayerResult> playerResults = new HashSet();
     private volatile boolean hasToEnd = false;
     private volatile boolean isRunning = false;
-    private GameResult result = null;
-    private Player[] players;
+    private GameResult result = new StandardGameResult(this);
+    private ArrayList<Player> players;
+    private int time = 0;
     private Long turnTime = 300L;
     private BoardView view;
 
@@ -37,15 +43,20 @@ public class StandardGame implements Game {
     public Board getBoard() { return board; }
 
     @Override
-    public ArrayList<Actor> getDeadActors() { return deadActors; }
-
-    @Override
     public Double getMovementFrequency() { return 1000.0 / turnTime; }
     @Override
     public void setMovementFrequency(double frequency) { turnTime = (long) (1000 / frequency); }
 
     @Override
-    public Player[] getPlayers() { return players; }
+    public List<Player> getPlayers() { return (List<Player>) players.clone(); }
+    @Override
+    public void addPlayer(Player player) {
+        // TODO
+    }
+    @Override
+    public void removePlayer(Player player) {
+        // TODO
+    }
 
     @Override
     public View getView() { return view; }
@@ -67,10 +78,12 @@ public class StandardGame implements Game {
                 Thread.sleep(500);
                 while (isRunning) {
                     try {
+                        time ++;
                         nextTurn();
                         view.clear();
                         board.getActors().forEach((actor) -> {
-                            if (actor.getPicture() != null) actor.getPicture().draw(view, actor.getRow(), actor.getColumn());
+                            if (actor.getPicture() != null)
+                                actor.getPicture().draw(view, actor.getRow(), actor.getColumn());
                         });
                         Thread.sleep(turnTime);
                     }
@@ -91,7 +104,14 @@ public class StandardGame implements Game {
      * Executes a turn.
      */
     public void nextTurn() {
-        for (Player player : players) { player.drive(); }
+        players.stream().filter(player -> player.getActor().isDead()).forEach(player -> {
+            player.setResult(new StandardPlayerResult(player, 0, time));
+            result.getPlayers().add(player);
+        });
+        result.getPlayers().forEach(player -> players.remove(player));
+        players.forEach(player -> {
+            player.drive();
+        });
     }
 
     @Override

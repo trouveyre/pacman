@@ -10,10 +10,17 @@ import fr.lyon1.etu.bigelRouveyre.inter.view.Drawable;
  */
 public interface Actor {
 
+    Actor clone();
+
     /**
      * Kills this.
      */
     void die();
+
+    /**
+     * @return true if this {@link Actor} is dead.
+     */
+    boolean isDead();
 
     /**
      * @return the {@link Board} where this is

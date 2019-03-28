@@ -1,11 +1,12 @@
 package fr.lyon1.etu.bigelRouveyre.inter.controler;
 
-import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
 import fr.lyon1.etu.bigelRouveyre.inter.model.GameResult;
+import fr.lyon1.etu.bigelRouveyre.inter.model.PlayerResult;
 import fr.lyon1.etu.bigelRouveyre.inter.view.View;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Defines a game and its rules.
@@ -18,14 +19,17 @@ public interface Game {
     Board getBoard();
 
     /**
-     * @return a {@link List} containing the dead {@link Actor}s
-     */
-    List<Actor> getDeadActors();
-
-    /**
      * @return the {@link Player} of this {@link Game}
      */
-    Player[] getPlayers();
+    List<Player> getPlayers();
+    /**
+     * @param player the {@link Player} to add
+     */
+    void addPlayer(Player player);
+    /**
+     * @param player the {@link Player} to remove
+     */
+    void removePlayer(Player player);
 
     /**
      * @return the frequency of {@link fr.lyon1.etu.bigelRouveyre.inter.model.Actor}s' moving

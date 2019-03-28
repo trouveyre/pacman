@@ -6,6 +6,8 @@ package fr.lyon1.etu.bigelRouveyre.inter.view;
 public interface Drawable<V extends View> {
 
     //METHODS
+    Drawable<V> clone();
+
     /**
      * Draws this on the {@link View} "view" at the coordinates ("x", "y").
      * @param view the view where this is drawn

@@ -18,7 +18,7 @@ public class DiggingGenerator implements Generator {
         Actor actor;
         for (int i=0;i<board.getHeight();i++)
             for (int j=0;j<board.getWidth();j++)
-                board.atCase(i, j, StandardActor.wall(board));
+                board.addAt(i, j, StandardActor.wall(board));
 
         int i = (int) (Math.random() * (board.getWidth()-2) + 1);
         int j = (int) (Math.random() * (board.getHeight()-2) + 1);

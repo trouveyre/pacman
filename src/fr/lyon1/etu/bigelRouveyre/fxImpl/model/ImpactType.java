@@ -29,7 +29,7 @@ public enum ImpactType implements Impact {
     Weak {
         @Override
         public boolean apply(Actor doer, Actor target) {
-            return false;
+            return true;
         }
     }
 }

@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ActorPicture extends ImageView implements Drawable<BoardView> {
+public class ActorPicture extends ImageView implements Drawable<BoardView>, Cloneable {
 
     public static final int SIZE = 52;
 
@@ -28,6 +28,18 @@ public class ActorPicture extends ImageView implements Drawable<BoardView> {
     private int j;
 
     //METHODS
+    @Override
+    public ActorPicture clone() {
+        ActorPicture result = null;
+        try {
+            result = (ActorPicture) super.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     @Override
     public void draw(BoardView view, double x, double y) {
         Platform.runLater(() -> {

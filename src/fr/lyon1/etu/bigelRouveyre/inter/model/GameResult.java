@@ -1,6 +1,9 @@
 package fr.lyon1.etu.bigelRouveyre.inter.model;
 
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Game;
+import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
+
+import java.util.List;
 
 /**
  * Wraps data about an ended {@link Game}.
@@ -13,4 +16,9 @@ public interface GameResult {
      * @return the {@link Game} this describes
      */
     Game getGame();
+
+    /**
+     * @return the {@link Player}s of the {@link Game}
+     */
+    List<Player> getPlayers();
 }

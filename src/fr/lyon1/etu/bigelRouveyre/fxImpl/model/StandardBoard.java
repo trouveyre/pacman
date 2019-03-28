@@ -4,7 +4,9 @@ import fr.lyon1.etu.bigelRouveyre.inter.model.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class StandardBoard implements Board {
@@ -21,26 +23,26 @@ public class StandardBoard implements Board {
     private Case[][] cases;
 
     @Override
-    public Actor atCase(int row, int column) {
+    public void addAt(int row, int column, Actor actor) {
+        if (actor != null) {
+            int i = (getHeight() + row) % getHeight();
+            int j = (getWidth() + column) % getWidth();
+            cases[i][j].addActor(actor);
+            actor.setRow(i);
+            actor.setColumn(j);
+        }
+    }
+
+    @Override
+    public List<Actor> atCase(int row, int column) {
         if (row >= 0 && row < getWidth() && column >= 0 && column < getHeight())
-            return cases[row][column].getActor();
+            return cases[row][column].getActors();
         return null;
     }
     @Override
-    public Actor atCase(int row, int column, Actor newActor) {
-        Actor result = null;
-        if (row >= 0 && row < getWidth() && column >= 0 && column < getHeight()) {
-            result = cases[row][column].getActor();
-            if (result != null) {
-                result.setRow(-1);
-                result.setColumn(-1);
-            }
-            cases[row][column].putActor(newActor);
-            if (newActor != null) {
-                newActor.setRow(row);
-                newActor.setColumn(column);
-            }
-        }
+    public List<Actor> atCase(int row, int column, Collection<Actor> newActors) {
+        List<Actor> result = cases[row][column].getActors();
+        cases[row][column].setActors(newActors);
         return result;
     }
 
@@ -52,17 +54,16 @@ public class StandardBoard implements Board {
     @Override
     public Set<Actor> getActors() {
         HashSet<Actor> result = new HashSet();
-        for (Case[] cases : cases) {
-            for (Case aCase : cases)
-                result.addAll(aCase.getAllActor());
+        for (Case[] fewCases : cases) {
+            for (Case aCase : fewCases)
+                result.addAll(aCase.getActors());
         }
-        result.remove(null);
         return result;
     }
 
     @Override
     public Case[][] getCases() {
-        return cases;
+        return cases.clone();
     }
 
     @Override
@@ -80,6 +81,19 @@ public class StandardBoard implements Board {
         return initiator.initiate(this);
     }
 
+    @Override
+    public void removeAt(int row, int column, Actor actor) {
+        if (row >= 0 && row < getHeight() && column >= 0 && column < getWidth())
+            cases[row][column].removeActor(actor);
+    }
+
+    @Override
+    public List<Actor> removeAllAt(int row, int column) {
+        if (row >= 0 && row < getHeight() && column >= 0 && column < getWidth())
+            return cases[row][column].empty();
+        return null;
+    }
+
     public void saveAs(String filename) {
         Path map = Paths.get("map/"+filename);
 
@@ -93,7 +107,7 @@ public class StandardBoard implements Board {
         for (int i=0; i<getWidth(); i++) {
             result += "\n|";
             for (int j=0; j<getHeight(); j++)
-                result += (cases[i][j] == null? " ": "x") + "|";
+                result += (atCase(i, j) == null? " ": "x") + "|";
             result += "\n+";
             for (int j=0; j<getHeight(); j++)
                 result += "-+";

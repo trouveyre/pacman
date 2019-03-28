@@ -16,7 +16,7 @@ public class StandardActor implements Actor, Cloneable {
 
     //FIELDS
     private Board board;
-    private int i = -1, j = -1;
+    private Integer i = null, j = null;
     private Impact impact;
     private Moving moving;
     private Drawable picture;
@@ -27,6 +27,7 @@ public class StandardActor implements Actor, Cloneable {
         StandardActor result = null;
         try {
             result = (StandardActor) super.clone();
+            result.setPicture(getPicture().clone());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,13 @@ public class StandardActor implements Actor, Cloneable {
 
     @Override
     public void die() {
-        getBoard().atCase(getRow(), getColumn(), null);
+        getBoard().removeAt(i, j, this);
+        i = null;
+        j = null;
+    }
+    @Override
+    public boolean isDead() {
+        return i == null || j == null;
     }
 
     @Override
@@ -61,8 +68,9 @@ public class StandardActor implements Actor, Cloneable {
     }
     @Override
     public void shift(int row, int column) {
-        board.atCase(i, j, null);
-        board.atCase(row, column, this);
+        if (!isDead())
+            board.removeAt(i, j, this);
+        board.addAt(row, column, this);
     }
 
     @Override
@@ -75,7 +83,7 @@ public class StandardActor implements Actor, Cloneable {
     }
     @Override
     public boolean onContact(Actor actor) {
-        return impact.apply(this, actor);
+        return actor.getImpact().apply(actor, this);
     }
 
     @Override
@@ -88,7 +96,8 @@ public class StandardActor implements Actor, Cloneable {
     }
     @Override
     public void move(int row, int column) {
-        moving.move(this, row, column);
+        if (!isDead())
+            moving.move(this, row, column);
     }
 
     @Override

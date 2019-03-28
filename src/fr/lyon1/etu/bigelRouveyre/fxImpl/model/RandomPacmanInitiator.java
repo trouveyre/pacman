@@ -33,12 +33,12 @@ public class RandomPacmanInitiator implements Initiator {
         ArrayList<int[]> freeCases = new ArrayList();
         for (int i=0; i<board.getHeight(); i++) {
             for (int j=0; j<board.getWidth(); j++)
-                if (board.atCase(i, j) == null) freeCases.add(new int[]{i, j});
+                if (board.atCase(i, j).isEmpty()) freeCases.add(new int[]{i, j});
         }
 
         while (!actors.isEmpty() || freeCases.isEmpty()) {
             int[] position = freeCases.remove((int) (Math.random()*freeCases.size()));
-            board.atCase(position[0], position[1], actors.remove(0));
+            board.addAt(position[0], position[1], actors.remove(0));
         }
 
         return board;

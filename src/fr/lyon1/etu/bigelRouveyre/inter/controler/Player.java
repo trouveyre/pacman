@@ -1,6 +1,7 @@
 package fr.lyon1.etu.bigelRouveyre.inter.controler;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
+import fr.lyon1.etu.bigelRouveyre.inter.model.PlayerResult;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -30,6 +31,16 @@ public interface Player {
      * @return the {@link Actor} this drive
      */
     Actor getActor();
+
+    /**
+     * @return the results or null if this has not finished
+     */
+    PlayerResult getResult();
+
+    /**
+     * @param result this' results
+     */
+    void setResult(PlayerResult result);
 
     /**
      * The players shortcuts.

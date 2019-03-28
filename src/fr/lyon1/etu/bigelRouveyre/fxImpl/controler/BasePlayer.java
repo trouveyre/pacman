@@ -2,6 +2,7 @@ package fr.lyon1.etu.bigelRouveyre.fxImpl.controler;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
+import fr.lyon1.etu.bigelRouveyre.inter.model.PlayerResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,7 @@ public abstract class BasePlayer implements Player {
     //FIELDS
     private Actor actor;
     boolean isAllow = true;
+    private PlayerResult result = null;
     private Map<Character, Function<int[], int[]>> shortcuts = new HashMap();
 
     //METHODS
@@ -39,6 +41,15 @@ public abstract class BasePlayer implements Player {
     @Override
     public Actor getActor() {
         return actor;
+    }
+
+    @Override
+    public PlayerResult getResult() {
+        return result;
+    }
+    @Override
+    public void setResult(PlayerResult result) {
+        this.result = result;
     }
 
     @Override
