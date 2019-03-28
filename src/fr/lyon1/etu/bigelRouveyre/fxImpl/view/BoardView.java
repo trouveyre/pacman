@@ -20,8 +20,8 @@ public class BoardView extends Scene implements View {
     private ImageView[][] imageViews;
 
     //METHODS
-    public void addImageView(int x, int y, ImageView imageView) {
-        gridPane.add(imageView, y, x);
+    public void addImageView(int i, int j, ImageView imageView) {
+        gridPane.add(imageView, j, i);
     }
 
     @Override

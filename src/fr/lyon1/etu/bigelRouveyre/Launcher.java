@@ -53,7 +53,7 @@ public class Launcher extends Application {
                 new RandomPlayer(actor2, 0, 0, 15, 15),
                 new RandomPlayer(actor3, 0, 0, 15, 15)
         };
-        board.initiate(new RandomPacmanInitiator(players, 10));
+        board.initiate(new RandomPacmanInitiator(players, 200));
         Game game = new StandardGame(board, players);
 
         Stage stage = new Stage();

@@ -36,7 +36,7 @@ public class RandomPacmanInitiator implements Initiator {
                 if (board.atCase(i, j).isEmpty()) freeCases.add(new int[]{i, j});
         }
 
-        while (!actors.isEmpty() || freeCases.isEmpty()) {
+        while (!(actors.isEmpty() || freeCases.isEmpty())) {
             int[] position = freeCases.remove((int) (Math.random()*freeCases.size()));
             board.addAt(position[0], position[1], actors.remove(0));
         }

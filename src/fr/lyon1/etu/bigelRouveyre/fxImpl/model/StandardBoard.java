@@ -37,10 +37,12 @@ public class StandardBoard implements Board {
     }
 
     private int asValidColumn(int column) {
-        return (getWidth() + column % -getWidth()) % getWidth();
+        double width = (double) getWidth();
+        return (int) ((width + column % -width) % width);
     }
     private int asValidRow(int row) {
-        return (getHeight() + row % -getHeight()) % getHeight();
+        double height = (double) getHeight();
+        return (int) ((height + row % -height) % height);
     }
 
     @Override

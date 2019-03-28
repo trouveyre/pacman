@@ -83,7 +83,7 @@ public class StandardGame implements Game {
                         view.clear();
                         board.getActors().forEach((actor) -> {
                             if (actor.getPicture() != null)
-                                actor.getPicture().draw(view, actor.getRow(), actor.getColumn());
+                                actor.getPicture().draw(view, actor.getColumn(), actor.getRow());
                         });
                         Thread.sleep(turnTime);
                     }

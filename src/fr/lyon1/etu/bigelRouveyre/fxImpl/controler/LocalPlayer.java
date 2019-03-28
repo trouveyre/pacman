@@ -7,10 +7,10 @@ public class LocalPlayer extends BasePlayer {
     //CONSTRUCTORS
     public LocalPlayer(Actor actor, Character leftKey, Character upKey, Character rightKey, Character downKey) {
         super(actor);
-        getShortcuts().put(leftKey, (coordinates) -> new int[] {-100, coordinates[1]});
-        getShortcuts().put(upKey, (coordinates) -> new int[] {coordinates[0], -100});
-        getShortcuts().put(rightKey, (coordinates) -> new int[] {100, coordinates[1]});
-        getShortcuts().put(downKey, (coordinates) -> new int[] {coordinates[0], 100});
+        getShortcuts().put(leftKey, (coordinates) -> new int[] {coordinates[0], -100});
+        getShortcuts().put(upKey, (coordinates) -> new int[] {-100, coordinates[1]});
+        getShortcuts().put(rightKey, (coordinates) -> new int[] {coordinates[0], 100});
+        getShortcuts().put(downKey, (coordinates) -> new int[] {100, coordinates[1]});
     }
 
     //FIELDS

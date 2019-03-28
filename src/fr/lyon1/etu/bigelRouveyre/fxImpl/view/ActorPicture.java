@@ -42,10 +42,7 @@ public class ActorPicture extends ImageView implements Drawable<BoardView>, Clon
 
     @Override
     public void draw(BoardView view, double x, double y) {
-        Platform.runLater(() -> {
-            if (x >= 0 && y >= 0)
-                view.addImageView((int) y, (int) x, this);
-        });
+        Platform.runLater(() -> view.addImageView((int) y, (int) x, this));
     }
 
     public static ActorPicture food() {
