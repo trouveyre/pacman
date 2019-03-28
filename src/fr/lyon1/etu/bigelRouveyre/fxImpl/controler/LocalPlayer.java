@@ -7,19 +7,20 @@ public class LocalPlayer extends BasePlayer {
     //CONSTRUCTORS
     public LocalPlayer(Actor actor, Character leftKey, Character upKey, Character rightKey, Character downKey) {
         super(actor);
-        getShortcuts().put(leftKey, (coordinates) -> new int[] {0, coordinates[1]});
-        getShortcuts().put(upKey, (coordinates) -> new int[] {coordinates[0], 0});
+        getShortcuts().put(leftKey, (coordinates) -> new int[] {-100, coordinates[1]});
+        getShortcuts().put(upKey, (coordinates) -> new int[] {coordinates[0], -100});
         getShortcuts().put(rightKey, (coordinates) -> new int[] {100, coordinates[1]});
         getShortcuts().put(downKey, (coordinates) -> new int[] {coordinates[0], 100});
     }
 
     //FIELDS
-    private int[] destination = new int[] {-1, -1};
+    private int[] destination;
 
     //METHODS
     @Override
     protected void onDrive() {
-        getActor().move(destination[0], destination[1]);
+        if (destination != null)
+            getActor().move(destination[0], destination[1]);
     }
 
     @Override

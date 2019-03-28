@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class StandardBoard implements Board {
 
+    //CONSTRUCTORS
     public StandardBoard(int height, int width) {
         cases = new Case[width][height];
         for (int i=0; i<height; i++) {
@@ -20,27 +21,38 @@ public class StandardBoard implements Board {
         }
     }
 
+    //FIELDS
     private Case[][] cases;
 
+    //METHODS
     @Override
     public void addAt(int row, int column, Actor actor) {
         if (actor != null) {
-            int i = (getHeight() + row) % getHeight();
-            int j = (getWidth() + column) % getWidth();
-            cases[i][j].addActor(actor);
-            actor.setRow(i);
-            actor.setColumn(j);
+            row = asValidRow(row);
+            column = asValidColumn(column);
+            cases[row][column].addActor(actor);
+            actor.setRow(row);
+            actor.setColumn(column);
         }
+    }
+
+    private int asValidColumn(int column) {
+        return (getWidth() + column % -getWidth()) % getWidth();
+    }
+    private int asValidRow(int row) {
+        return (getHeight() + row % -getHeight()) % getHeight();
     }
 
     @Override
     public List<Actor> atCase(int row, int column) {
-        if (row >= 0 && row < getWidth() && column >= 0 && column < getHeight())
-            return cases[row][column].getActors();
-        return null;
+        row = asValidRow(row);
+        column = asValidColumn(column);
+        return cases[row][column].getActors();
     }
     @Override
     public List<Actor> atCase(int row, int column, Collection<Actor> newActors) {
+        row = asValidRow(row);
+        column = asValidColumn(column);
         List<Actor> result = cases[row][column].getActors();
         cases[row][column].setActors(newActors);
         return result;
@@ -83,15 +95,16 @@ public class StandardBoard implements Board {
 
     @Override
     public void removeAt(int row, int column, Actor actor) {
-        if (row >= 0 && row < getHeight() && column >= 0 && column < getWidth())
-            cases[row][column].removeActor(actor);
+        row = asValidRow(row);
+        column = asValidColumn(column);
+        cases[row][column].removeActor(actor);
     }
 
     @Override
     public List<Actor> removeAllAt(int row, int column) {
-        if (row >= 0 && row < getHeight() && column >= 0 && column < getWidth())
-            return cases[row][column].empty();
-        return null;
+        row = asValidRow(row);
+        column = asValidColumn(column);
+        return cases[row][column].empty();
     }
 
     public void saveAs(String filename) {

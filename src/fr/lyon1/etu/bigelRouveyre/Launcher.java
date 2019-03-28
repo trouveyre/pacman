@@ -41,7 +41,7 @@ public class Launcher extends Application {
     }
 
     public void onClickOnPlay() {
-        Board board = new StandardBoard(14, 14)
+        Board board = new StandardBoard(17, 17)
                 .build(new DiggingGenerator());
         Actor actor0 = StandardActor.pacman(board);
         Actor actor1 = StandardActor.ghost(board);

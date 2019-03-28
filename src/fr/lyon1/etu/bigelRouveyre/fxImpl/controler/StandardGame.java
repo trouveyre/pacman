@@ -109,9 +109,7 @@ public class StandardGame implements Game {
             result.getPlayers().add(player);
         });
         result.getPlayers().forEach(player -> players.remove(player));
-        players.forEach(player -> {
-            player.drive();
-        });
+        players.forEach(player -> player.drive());
     }
 
     @Override
