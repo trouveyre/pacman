@@ -1,6 +1,9 @@
 package fr.lyon1.etu.bigelRouveyre.inter.model;
 
+import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
 import fr.lyon1.etu.bigelRouveyre.inter.view.Drawable;
+
+import java.util.List;
 
 /**
  * The top level interface for any object on a {@link Board}.
@@ -9,6 +12,19 @@ import fr.lyon1.etu.bigelRouveyre.inter.view.Drawable;
  * @see Moving
  */
 public interface Actor {
+
+    /**
+     * Places this on a {@link Board}.
+     * @param board the {@link Board} where place this
+     */
+    void beBorn(Board board);
+
+    /**
+     * Places this on a {@link Board} at the given {@link Coordinates}
+     * @param board the {@link Board} where place this
+     * @param coordinates the coordinates where place this
+     */
+    void beBornAt(Board board, Coordinates coordinates);
 
     Actor clone();
 
@@ -20,36 +36,23 @@ public interface Actor {
     /**
      * @return true if this {@link Actor} is dead.
      */
-    boolean isDead();
+    boolean isAlive();
 
     /**
      * @return the {@link Board} where this is
      */
     Board getBoard();
+
     /**
-     * @return the column where this is
+     * @return the coordinates where this is
      */
-    int getColumn();
-    /**
-     * @return the row where this is
-     */
-    int getRow();
-    /**
-     * Shifts this at the new column 'column'.
-     * @param column the new column where place this
-     */
-    void setColumn(int column);
-    /**
-     * Shifts this at the new row 'row'.
-     * @param row
-     */
-    void setRow(int row);
+    Coordinates getCoordinates();
+
     /**
      * Shifts this at the new location ('row', 'column').
-     * @param row the new row where place this
-     * @param column the new column where place this
+     * @param coordinates the coordinates where shift this
      */
-    void shift(int row, int column);
+    void shift(Coordinates coordinates);
 
     /**
      * @return the {@link Impact} that this has when meeting another {@link Actor}
@@ -77,10 +80,9 @@ public interface Actor {
     void setMoving(Moving movement);
     /**
      * Moves this toward the case ('row', 'column') according to this' moving field.
-     * @param row the row toward moving
-     * @param column the column toward moving
+     * @param coordinates the coordinates toward moving
      */
-    void move(int row, int column);
+    void move(Coordinates coordinates);
 
     /**
      * @return the {@link Drawable} used to draw this
@@ -91,4 +93,19 @@ public interface Actor {
      * @param picture the new {@link Drawable} used to draw this
      */
     void setPicture(Drawable picture);
+
+    /**
+     * @return the {@link Player}s listenning to this
+     */
+    List<Player> getListeningPlayers();
+
+    /**
+     * @param player a {@link Player} that has to listen to this
+     */
+    void addListeningPlayer(Player player);
+
+    /**
+     * @param player a {@link Player} that has no longer to listen to this
+     */
+    void removeListeningPlayer(Player player);
 }

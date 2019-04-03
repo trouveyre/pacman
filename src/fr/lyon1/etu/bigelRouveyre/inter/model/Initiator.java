@@ -8,9 +8,8 @@ package fr.lyon1.etu.bigelRouveyre.inter.model;
 public interface Initiator {
 
     /**
-     * Initiates the {@link Board}.
-     * @param board the board to initiate
-     * @return 'board' after being initiated
+     * Initiates the {@link Game}.
+     * @param game the {@link Game} to initiate
      */
-    Board initiate(Board board);
+    void initiate(Game game);
 }

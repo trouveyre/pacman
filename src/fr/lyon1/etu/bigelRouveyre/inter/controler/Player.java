@@ -1,16 +1,21 @@
 package fr.lyon1.etu.bigelRouveyre.inter.controler;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
+import fr.lyon1.etu.bigelRouveyre.inter.model.Game;
 import fr.lyon1.etu.bigelRouveyre.inter.model.PlayerResult;
-
-import java.util.Map;
-import java.util.function.Function;
+import fr.lyon1.etu.bigelRouveyre.inter.view.View;
 
 /**
  * Represents any class that makes an {@link Actor} take decisions.
  * @see Actor
  */
 public interface Player {
+
+    /**
+     * Adds 'points' at this' score.
+     * @param points the number of points to add at this' score
+     */
+    void addScore(int points);
 
     /**
      * Allows the player driving its {@link Actor}
@@ -33,25 +38,35 @@ public interface Player {
     Actor getActor();
 
     /**
+     * @return the {@link fr.lyon1.etu.bigelRouveyre.inter.model.Game} this is playing
+     */
+    Game getGame();
+
+    /**
      * @return the name of this
      */
     String getName();
 
     /**
-     * @return the results or null if this has not finished
+     * @return this' results
      */
     PlayerResult getResult();
 
     /**
-     * @param result this' results
+     * @return this' score
      */
-    void setResult(PlayerResult result);
+    int getScore();
 
     /**
-     * The players shortcuts.
-     * @return a map with {@link Character} as key and coordinates of case to move as value.
+     * @return the {@link View} this player uses to play or null if this player has no {@link View}
      */
-    Map<String, Function<int[], int[]>> getShortcuts();
+    View getView();
+
+    /**
+     * Called when an {@link Actor} is added to the board.
+     * @param actor the added {@link Actor}
+     */
+    void onBirth(Actor actor);
 
     /**
      * Called when a mouse button is clicked.
@@ -65,4 +80,48 @@ public interface Player {
      * @param command the command executing
      */
     void onCommand(String command);
+
+    /**
+     * Called when an {@link Actor} dies.
+     * @param actor the {@link Actor} that just dies
+     */
+    void onDeath(Actor actor);
+
+    /**
+     * Called when a listened {@link Actor} moves
+     * @param actor the {@link Actor} that just moves
+     */
+    void onMove(Actor actor);
+
+    /**
+     * Called when a {@link Player} is added to the {@link Game}.
+     * @param player the added {@link Player}
+     */
+    void onPlayerAdded(Player player);
+
+    /**
+     * Called when a {@link Player} is removed from the {@link Game}.
+     * @param player the removed {@link Player}
+     */
+    void onPlayerRemoved(Player player);
+
+    /**
+     * @param actor the new {@link Actor} to drive
+     */
+    void setActor(Actor actor);
+
+    /**
+     * @param game the {@link Game} this is going to play
+     */
+    void setGame(Game game);
+
+    /**
+     * @param score the new score of this
+     */
+    void setScore(int score);
+
+    /**
+     * @param view the {@link View} this player uses to play
+     */
+    void setView(View view);
 }

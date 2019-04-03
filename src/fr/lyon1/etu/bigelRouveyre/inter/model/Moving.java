@@ -8,8 +8,7 @@ public interface Moving {
     /**
      * Moves the {@link Actor} 'doer' toward the case at ('row', 'column').
      * @param doer the {@link Actor} moving
-     * @param row the row toward moving
-     * @param column the column toward moving
+     * @param coordinates the coordinates toward moving
      */
-    void move(Actor doer, int row, int column);
+    void move(Actor doer, Coordinates coordinates);
 }

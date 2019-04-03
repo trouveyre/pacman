@@ -18,7 +18,7 @@ public interface PlayerResult {
     int getScore();
 
     /**
-     * @return the number of turns the {@link Player} was alive
+     * @return the moment when this describes the {@link Player}'s results
      */
     int getTime();
 }
