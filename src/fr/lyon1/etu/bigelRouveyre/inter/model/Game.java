@@ -43,6 +43,11 @@ public interface Game {
     List<Player> getPlayers();
 
     /**
+     * @return the actual result of this game
+     */
+    GameResult getResult();
+
+    /**
      * @return the number of elapsed turns
      */
     int getTime();

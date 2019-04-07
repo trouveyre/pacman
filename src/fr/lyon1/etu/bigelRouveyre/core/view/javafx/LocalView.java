@@ -5,7 +5,9 @@ import fr.lyon1.etu.bigelRouveyre.inter.view.View;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ public class LocalView extends Scene implements View {
     public LocalView(int nbRows, int nbColumns) {
         super(new GridPane(), nbRows * ActorPicture.SIZE, nbColumns * ActorPicture.SIZE);
         gridPane = (GridPane) getRoot();
+        for (int i=0; i<nbRows; i++)
+            gridPane.getRowConstraints().add(i, new RowConstraints(ActorPicture.SIZE));
+        for (int j=0; j<nbColumns; j++)
+            gridPane.getColumnConstraints().add(j, new ColumnConstraints(ActorPicture.SIZE));
         setOnKeyTyped(event -> players.forEach(player -> player.onCommand(event.getCharacter())));
         setOnMouseClicked(event -> players.forEach(player -> player.onClick(event.getX(), event.getY())));
     }
