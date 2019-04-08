@@ -42,8 +42,8 @@ public class Launcher extends Application {
     public void onClickOnPlay() {
         Game game = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
         LocalPlayer localPlayer = new LocalPlayer(BasePlayer.randomName(), "q","z", "d", "s");
-        localPlayer.setActor(PacmanActor.pacman());
         game.addPlayer(localPlayer);
+        localPlayer.setActor(PacmanActor.pacman());
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
@@ -55,6 +55,9 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.show();
 
-        new Thread(() -> System.out.println(game.launch())).start();
+        new Thread(() -> {
+            System.out.println(" -> "+localPlayer.getActor().getCoordinates());
+            System.out.println(game.launch());
+        }).start();
     }
 }

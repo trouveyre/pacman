@@ -55,9 +55,19 @@ public interface Board {
     Coordinates removeActor(Actor actor);
 
     /**
+     * @return a {@link Set} of the {@link Coordinates}s without {@link Actor} in
+     */
+    Set<Coordinates> getFreeCases();
+
+    /**
      * @return the sizes of this {@link Board}
      */
     int[] getSizes();
+
+    /**
+     * @return a {@link Set} of the {@link Coordinates}s with {@link Actor}s in
+     */
+    Set<Coordinates> getTakenCases();
 
     /**
      * Removes "actor" at the row "row" and the column 'column'.

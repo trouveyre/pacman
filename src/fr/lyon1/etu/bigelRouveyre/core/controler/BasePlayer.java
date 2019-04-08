@@ -109,6 +109,16 @@ public abstract class BasePlayer implements Player {
     @Override
     public void setActor(Actor actor) {
         this.actor = actor;
+        if (game != null) {
+            if (this.actor != null) {
+                this.actor.addListeningPlayer(this);
+                this.actor.beBorn(game.getBoard());
+            }
+            else {
+                actor.die();
+                actor.removeListeningPlayer(this);
+            }
+        }
     }
 
     @Override

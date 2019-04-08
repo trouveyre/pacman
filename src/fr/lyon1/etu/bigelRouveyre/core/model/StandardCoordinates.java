@@ -40,7 +40,8 @@ public class StandardCoordinates implements Coordinates {
     @Override
     public int hashCode() {
         int result = 0;
-        for (int i=0; i<coordinates.length; i++) result += coordinates[i] * Math.pow(1000, i);
+        for (int i=0; i<coordinates.length; i++)
+            result += coordinates[i] * Math.pow(1000, i);
         return result;
     }
 

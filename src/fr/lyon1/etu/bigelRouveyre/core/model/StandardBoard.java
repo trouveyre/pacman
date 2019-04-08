@@ -2,7 +2,6 @@ package fr.lyon1.etu.bigelRouveyre.core.model;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.*;
 
-import javax.tools.Diagnostic;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -30,6 +29,8 @@ public class StandardBoard implements Board {
     public void addAt(Coordinates coordinates, Actor actor) {
         if (actor != null) {
             coordinates = asValidCoordinates(coordinates);
+            if (locations.containsKey(actor))
+                actors.get(locations.get(actor)).remove(actor);
             if (actors.get(coordinates) == null)
                 actors.put(coordinates, new HashSet<>());
             actors.get(coordinates).add(actor);
@@ -40,7 +41,7 @@ public class StandardBoard implements Board {
     private Coordinates asValidCoordinates(Coordinates coordinates) {
         int[] result = new int[coordinates.get().length];
         for (int i=0; i<result.length; i++) {
-            result[i] = (int) ((sizes[i] + coordinates.get()[i] % -sizes[i]) % sizes[i]);
+            result[i] = (sizes[i] + coordinates.get()[i] % -sizes[i]) % sizes[i];
         }
         return new StandardCoordinates(result);
     }
@@ -71,16 +72,41 @@ public class StandardBoard implements Board {
     }
 
     @Override
+    public Set<Coordinates> getFreeCases() {
+        HashSet<Coordinates> result = new HashSet<>();
+        Coordinates location;
+        for (int i=0; i<sizes[0]; i++) {
+            for (int j=0; j<sizes[1]; j++) {
+                location = StandardCoordinates.twoDimensions(i, j);
+                if (atCase(location).isEmpty()) result.add(location);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public int[] getSizes() {
         return sizes;
     }
 
     @Override
+    public Set<Coordinates> getTakenCases() {
+        return actors.keySet();
+    }
+
+    @Override
     public Coordinates removeActor(Actor actor) {
         Coordinates result = locations.remove(actor);
-        actors.get(result).remove(actor);
+            actors.get(result).remove(actor);
         if (actors.get(result).isEmpty())
             actors.remove(result);
+        System.out.println("\n\n");
+        actors.values().stream().forEach(as -> {
+            if (as.stream().anyMatch(a -> a.getMoving() == TwoDimensionMovingType.Forcing)) System.out.println("#");
+            for (Map.Entry<Coordinates, Set<Actor>> p : actors.entrySet()) {
+                    p.getValue().stream().filter(a -> a.getMoving() == TwoDimensionMovingType.Forcing).forEach(a -> System.out.println(a + " at " + p.getKey()));
+            }
+        });
         return result;
     }
 
@@ -111,15 +137,7 @@ public class StandardBoard implements Board {
 
     @Override
     public Set<Coordinates> spawns() {
-        HashSet<Coordinates> result = new HashSet<>();
-        Coordinates location;
-        for (int i=0; i<sizes[0]; i++) {
-            for (int j=0; j<sizes[1]; j++) {
-                location = StandardCoordinates.twoDimensions(i, j);
-                if (atCase(location).isEmpty()) result.add(location);
-            }
-        }
-        return result;
+        return getFreeCases();
     }
 
     @Override
