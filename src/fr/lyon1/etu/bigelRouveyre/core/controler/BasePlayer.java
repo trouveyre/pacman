@@ -25,7 +25,7 @@ public abstract class BasePlayer implements Player {
     //METHODS
     @Override
     public void addScore(int points) {
-        result = new StandardPlayerResult(this, getScore() + points, game.getTime());
+        result = new StandardPlayerResult(this, game.getTime(), getScore() + points);
     }
 
     @Override
@@ -81,6 +81,7 @@ public abstract class BasePlayer implements Player {
 
     @Override
     public void onDeath(Actor actor) {
+        result = new StandardPlayerResult(this, game.getTime(), result.getScore());
         if (view != null)
             actor.getPicture().clean(view);
     }
@@ -132,7 +133,7 @@ public abstract class BasePlayer implements Player {
 
     @Override
     public void setScore(int score) {
-        result = new StandardPlayerResult(this, score, game.getTime());
+        result = new StandardPlayerResult(this, game.getTime(), score);
     }
 
     public void setView(View view) {

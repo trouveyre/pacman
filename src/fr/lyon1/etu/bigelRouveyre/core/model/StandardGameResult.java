@@ -49,13 +49,13 @@ public class StandardGameResult implements GameResult {
     public String toString() {
         String result = game + "\n Winners :";
         for (Player player : getWinners().stream()
-                .sorted(Comparator.comparingInt(player -> player.getResult().getScore()))
+                .sorted(Comparator.comparingInt(player -> player.getScore()))
                 .collect(Collectors.toList()))
             result += "\n\t" + player.getResult();
 
         result += "\n Losers :";
         for (Player player : getLosers().stream()
-                .sorted(Comparator.comparingInt(player -> player.getResult().getTime()))
+                .sorted(Comparator.comparingInt(player -> player.getScore()))
                 .collect(Collectors.toList()))
             result += "\n\t" + player.getResult();
 

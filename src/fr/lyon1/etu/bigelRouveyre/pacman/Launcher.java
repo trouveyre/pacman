@@ -44,6 +44,10 @@ public class Launcher extends Application {
         LocalPlayer localPlayer = new LocalPlayer(BasePlayer.randomName(), "q","z", "d", "s");
         game.addPlayer(localPlayer);
         localPlayer.setActor(PacmanActor.pacman());
+        LocalPlayer localPlayer1 = new LocalPlayer(BasePlayer.randomName(), "k","o", "m", "l");
+        game.addPlayer(localPlayer1);
+        localPlayer1.setActor(PacmanActor.pacman());
+        localPlayer1.setView(localPlayer.getView());
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
@@ -55,9 +59,6 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.show();
 
-        new Thread(() -> {
-            System.out.println(" -> "+localPlayer.getActor().getCoordinates());
-            System.out.println(game.launch());
-        }).start();
+        new Thread(() -> System.out.println(game.launch())).start();
     }
 }

@@ -35,6 +35,6 @@ public class StandardPlayerResult implements PlayerResult {
 
     @Override
     public String toString() {
-        return player.getName() + " has" + (time==0? " won the game with ": ", at turn " + time + ", ") + score + " points";    // TODO
+        return player.getName() + " has got " + score + " points at turn " + time;
     }
 }

@@ -28,6 +28,25 @@ public class PacmanGame extends BaseGame {
     @Override
     public void onEnd() {
         getPlayers().stream().filter(player -> player.getView() != null).forEach(player -> player.getView().close());
+        if (getPlayers().stream()
+                .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
+                .anyMatch(player -> player.getActor().isAlive())
+        ) {
+            getPlayers().stream()
+                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
+                    .forEach(player -> getResult().addWinner(player));
+            getPlayers().stream()
+                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Ghost)
+                    .forEach(player -> getResult().addLoser(player));
+        }
+        else {
+            getPlayers().stream()
+                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
+                    .forEach(player -> getResult().addLoser(player));
+            getPlayers().stream()
+                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Ghost)
+                    .forEach(player -> getResult().addWinner(player));
+        }
     }
 
     @Override

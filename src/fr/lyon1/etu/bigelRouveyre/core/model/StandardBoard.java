@@ -100,13 +100,6 @@ public class StandardBoard implements Board {
             actors.get(result).remove(actor);
         if (actors.get(result).isEmpty())
             actors.remove(result);
-        System.out.println("\n\n");
-        actors.values().stream().forEach(as -> {
-            if (as.stream().anyMatch(a -> a.getMoving() == TwoDimensionMovingType.Forcing)) System.out.println("#");
-            for (Map.Entry<Coordinates, Set<Actor>> p : actors.entrySet()) {
-                    p.getValue().stream().filter(a -> a.getMoving() == TwoDimensionMovingType.Forcing).forEach(a -> System.out.println(a + " at " + p.getKey()));
-            }
-        });
         return result;
     }
 

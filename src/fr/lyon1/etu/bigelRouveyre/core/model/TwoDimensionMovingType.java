@@ -4,6 +4,7 @@ import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Coordinates;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Moving;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public enum TwoDimensionMovingType implements Moving {
@@ -31,7 +32,7 @@ public enum TwoDimensionMovingType implements Moving {
             Set<Actor> metActors = doer.getBoard().atCase(predictedCoordinates);
 
             boolean canMove = true;
-            for (Actor actor : metActors) {
+            for (Actor actor : new HashSet<>(metActors)) {
                 actor.onContact(doer);
                 if (!doer.onContact(actor)) canMove = false;
             }

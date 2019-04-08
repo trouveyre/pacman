@@ -11,7 +11,8 @@ public enum PacmanImpact implements Impact {
         public boolean apply(Actor doer, Actor target) {
             if (target.getImpact() == Pacman) {
                 doer.die();
-                target.getListeningPlayers().forEach(player -> player.addScore(1));
+                target.getListeningPlayers().stream().filter(player -> player.getActor().equals(target))
+                        .forEach(player -> player.addScore(1));
             }
             return true;
         }
@@ -19,7 +20,11 @@ public enum PacmanImpact implements Impact {
     Ghost {
         @Override
         public boolean apply(Actor doer, Actor target) {
-            if (target.getImpact() == Pacman) target.die();
+            if (target.getImpact() == Pacman) {
+                target.die();
+                doer.getListeningPlayers().stream().filter(player -> player.getActor().equals(doer))
+                        .forEach(player -> player.addScore(100));
+            }
             return false;
         }
     },
