@@ -16,6 +16,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+
 public class Launcher extends Application {
 
     public static void main(String... args) {
@@ -42,7 +44,16 @@ public class Launcher extends Application {
     }
 
     public void onClickOnPlay() {
-        PacmanGame game = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
+        PacmanGame gameInit;
+        try {
+            gameInit = new PacmanGame(new LoaderGenerator("map/map0.txt"), 15, 4);
+        }
+        catch (IOException ioe) {
+            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
+            ioe.printStackTrace();
+        }
+
+        PacmanGame game = gameInit;
         game.newPacman("Mario", "q", "z", "d", "s");
         game.newPacman("Luigi", "k", "o", "m", "l");
 

@@ -27,7 +27,7 @@ public class PacmanGame extends BaseGame {
 
     @Override
     public boolean isFinished() {
-        return getBoard().getActors().stream().noneMatch(actor -> actor.getImpact() == PacmanImpact.Food) ||
+        return getBoard().getActors().stream().noneMatch(actor -> actor.getImpact().equals(PacmanImpact.Food)) ||
                 getPlayers().stream()
                         .filter(player -> player instanceof PacmanPlayer)
                         .noneMatch(player -> player.getActor().isAlive());
@@ -54,23 +54,20 @@ public class PacmanGame extends BaseGame {
 
     @Override
     public void onEnd() {
-        if (getPlayers().stream()
-                .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
-                .anyMatch(player -> player.getActor().isAlive())
-        ) {
+        if (getBoard().getActors().stream().noneMatch(actor -> actor.getImpact().equals(PacmanImpact.Food))) {
             getPlayers().stream()
-                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
+                    .filter(player -> player.getActor().getImpact().equals(PacmanImpact.Pacman))
                     .forEach(player -> getResult().addWinner(player));
             getPlayers().stream()
-                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Ghost)
+                    .filter(player -> player.getActor().getImpact().equals(PacmanImpact.Ghost))
                     .forEach(player -> getResult().addLoser(player));
         }
         else {
             getPlayers().stream()
-                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
+                    .filter(player -> player.getActor().getImpact().equals(PacmanImpact.Pacman))
                     .forEach(player -> getResult().addLoser(player));
             getPlayers().stream()
-                    .filter(player -> player.getActor().getImpact() == PacmanImpact.Ghost)
+                    .filter(player -> player.getActor().getImpact().equals(PacmanImpact.Ghost))
                     .forEach(player -> getResult().addWinner(player));
         }
     }
