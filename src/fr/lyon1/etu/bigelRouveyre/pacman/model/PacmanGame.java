@@ -3,7 +3,6 @@ package fr.lyon1.etu.bigelRouveyre.pacman.model;
 import fr.lyon1.etu.bigelRouveyre.core.controler.BasePlayer;
 import fr.lyon1.etu.bigelRouveyre.core.controler.RandomPlayer;
 import fr.lyon1.etu.bigelRouveyre.core.model.BaseGame;
-import fr.lyon1.etu.bigelRouveyre.core.controler.LocalPlayer;
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.LocalView;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
@@ -30,7 +29,7 @@ public class PacmanGame extends BaseGame {
     public boolean isFinished() {
         return getBoard().getActors().stream().noneMatch(actor -> actor.getImpact() == PacmanImpact.Food) ||
                 getPlayers().stream()
-                        .filter(player -> player instanceof LocalPlayer)
+                        .filter(player -> player instanceof PacmanPlayer)
                         .noneMatch(player -> player.getActor().isAlive());
     }
 
