@@ -44,7 +44,7 @@ public class Launcher extends Application {
     public void onClickOnPlay() {
         PacmanGame game = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
         game.newPacman("Mario", "q", "z", "d", "s");
-//        game.newPacman("Luigi", "k", "o", "m", "l");
+        game.newPacman("Luigi", "k", "o", "m", "l");
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
