@@ -5,11 +5,11 @@ package fr.lyon1.etu.bigelRouveyre.inter.model;
  * @see Board
  * @see Actor
  */
-public interface Initiator {
+public interface Initiator<G extends Game> {
 
     /**
      * Initiates the {@link Game}.
      * @param game the {@link Game} to initiate
      */
-    void initiate(Game game);
+    void initiate(G game);
 }

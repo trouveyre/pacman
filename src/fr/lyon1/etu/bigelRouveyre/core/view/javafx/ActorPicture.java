@@ -25,8 +25,6 @@ public class ActorPicture extends ImageView implements Drawable<LocalView>, Clon
     }
 
     //FIELDS
-    private int i;
-    private int j;
 
     //METHODS
     @Override

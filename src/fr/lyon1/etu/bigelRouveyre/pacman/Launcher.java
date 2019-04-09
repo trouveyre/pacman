@@ -1,11 +1,6 @@
 package fr.lyon1.etu.bigelRouveyre.pacman;
 
-import fr.lyon1.etu.bigelRouveyre.core.controler.BasePlayer;
-import fr.lyon1.etu.bigelRouveyre.core.controler.LocalPlayer;
 import fr.lyon1.etu.bigelRouveyre.core.model.*;
-import fr.lyon1.etu.bigelRouveyre.core.view.javafx.LocalView;
-import fr.lyon1.etu.bigelRouveyre.inter.model.Game;
-import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanActor;
 import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanGame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,14 +35,9 @@ public class Launcher extends Application {
     }
 
     public void onClickOnPlay() {
-        Game game = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
-        LocalPlayer localPlayer = new LocalPlayer(BasePlayer.randomName(), "q","z", "d", "s");
-        game.addPlayer(localPlayer);
-        localPlayer.setActor(PacmanActor.pacman());
-        LocalPlayer localPlayer1 = new LocalPlayer(BasePlayer.randomName(), "k","o", "m", "l");
-        game.addPlayer(localPlayer1);
-        localPlayer1.setActor(PacmanActor.pacman());
-        localPlayer1.setView(localPlayer.getView());
+        PacmanGame game = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
+        game.newPacman("Mario", "q", "z", "d", "s");
+        game.newPacman("Luigi", "k", "o", "m", "l");
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
@@ -55,7 +45,7 @@ public class Launcher extends Application {
         stage.setTitle("You re playing a remastered PACMAN ! Great ! :D");
         stage.setOnCloseRequest((event) -> game.end());
 
-        Scene scene = (LocalView) localPlayer.getView();
+        Scene scene = game.getLocalView();
         stage.setScene(scene);
         stage.show();
 

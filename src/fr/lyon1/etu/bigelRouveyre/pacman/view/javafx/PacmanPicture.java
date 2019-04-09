@@ -1,4 +1,4 @@
-package fr.lyon1.etu.bigelRouveyre.pacman.view;
+package fr.lyon1.etu.bigelRouveyre.pacman.view.javafx;
 
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.ActorPicture;
 import javafx.scene.image.Image;

@@ -36,12 +36,6 @@ public class LocalPlayer extends BasePlayer {
     }
 
     @Override
-    protected void onDrive() {
-        if (destination != null)
-            getActor().move(destination);
-    }
-
-    @Override
     public void onClick(double x, double y) {
         x  -= getGame().getBoard().getSizes()[0] * (double) ActorPicture.SIZE / 2;
         y  -= getGame().getBoard().getSizes()[1] * (double) ActorPicture.SIZE / 2;
@@ -66,6 +60,22 @@ public class LocalPlayer extends BasePlayer {
                     getActor().getCoordinates().get()[0],
                     getActor().getCoordinates().get()[1]
             ));
+    }
+
+    @Override
+    protected void onDrive() {
+        if (destination != null)
+            getActor().move(destination);
+    }
+
+    @Override
+    public void onLose() {
+        getView().close();
+    }
+
+    @Override
+    public void onWin() {
+        getView().close();
     }
 
     @Override

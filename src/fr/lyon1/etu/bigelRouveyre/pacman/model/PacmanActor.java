@@ -3,7 +3,7 @@ package fr.lyon1.etu.bigelRouveyre.pacman.model;
 import fr.lyon1.etu.bigelRouveyre.core.model.TwoDimensionMovingType;
 import fr.lyon1.etu.bigelRouveyre.core.model.StandardActor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
-import fr.lyon1.etu.bigelRouveyre.pacman.view.PacmanPicture;
+import fr.lyon1.etu.bigelRouveyre.pacman.view.javafx.PacmanPicture;
 
 public abstract class PacmanActor extends StandardActor {
 

@@ -61,6 +61,8 @@ public abstract class BasePlayer implements Player {
 
     @Override
     public PlayerResult getResult() {
+        if (actor.isAlive())
+            result = new StandardPlayerResult(this, game.getTime(), result.getScore());
         return result;
     }
 

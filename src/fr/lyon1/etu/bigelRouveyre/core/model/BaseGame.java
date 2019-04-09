@@ -106,6 +106,8 @@ public abstract class BaseGame implements Game {
             }
         }
         onEnd();
+        result.getWinners().forEach(Player::onWin);
+        result.getLosers().forEach(Player::onLose);
         return result;
     }
 

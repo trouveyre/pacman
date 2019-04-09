@@ -3,7 +3,6 @@ package fr.lyon1.etu.bigelRouveyre.core.controler;
 import fr.lyon1.etu.bigelRouveyre.core.model.StandardCoordinates;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Coordinates;
-import fr.lyon1.etu.bigelRouveyre.inter.model.Game;
 import fr.lyon1.etu.bigelRouveyre.inter.view.View;
 
 public class RandomPlayer extends BasePlayer {
@@ -11,7 +10,7 @@ public class RandomPlayer extends BasePlayer {
     public final static double ACTING_REDEFINING_COEFFICIENT = 0.6;
 
     //CONSTRUCTORS
-    public RandomPlayer(String name, Game game, Actor actor,
+    public RandomPlayer(String name, Actor actor,
             int xLeftTopActionZoneCorner,
             int yLeftTopActionZoneCorner,
             int xRightBottomActionZoneCorner,
@@ -49,6 +48,12 @@ public class RandomPlayer extends BasePlayer {
                 (int) (Math.random() * actionZone[3] + actionZone[1])
         );
     }
+
+    @Override
+    public void onLose() {}
+
+    @Override
+    public void onWin() {}
 
     @Override
     public void onClick(double x, double y) {}

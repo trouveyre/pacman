@@ -1,9 +1,13 @@
 package fr.lyon1.etu.bigelRouveyre.pacman.model;
 
+import fr.lyon1.etu.bigelRouveyre.core.controler.BasePlayer;
+import fr.lyon1.etu.bigelRouveyre.core.controler.RandomPlayer;
 import fr.lyon1.etu.bigelRouveyre.core.model.BaseGame;
 import fr.lyon1.etu.bigelRouveyre.core.controler.LocalPlayer;
+import fr.lyon1.etu.bigelRouveyre.core.view.javafx.LocalView;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
+import fr.lyon1.etu.bigelRouveyre.pacman.controler.PacmanPlayer;
 
 public class PacmanGame extends BaseGame {
 
@@ -15,8 +19,13 @@ public class PacmanGame extends BaseGame {
     }
 
     //FIELDS
+    private LocalView view = null;
 
     //METHODS
+    public LocalView getLocalView() {
+        return view;
+    }
+
     @Override
     public boolean isFinished() {
         return getBoard().getActors().stream().noneMatch(actor -> actor.getImpact() == PacmanImpact.Food) ||
@@ -25,9 +34,27 @@ public class PacmanGame extends BaseGame {
                         .noneMatch(player -> player.getActor().isAlive());
     }
 
+    public RandomPlayer newGhost() {
+        return new RandomPlayer(BasePlayer.randomName(),
+                PacmanActor.ghost(),
+                -getBoard().getSizes()[0],
+                -getBoard().getSizes()[1],
+                getBoard().getSizes()[0]*2,
+                getBoard().getSizes()[1]*2
+        );
+    }
+
+    public PacmanPlayer newPacman(String name, String leftKey, String upKey, String rightKey, String downKey) {
+        PacmanPlayer result = new PacmanPlayer(name, leftKey, upKey, rightKey, downKey);
+        result.setGame(this);
+        result.setActor(PacmanActor.pacman());
+        if (view == null) view = (LocalView) result.getView();
+        else result.setView(view);
+        return result;
+    }
+
     @Override
     public void onEnd() {
-        getPlayers().stream().filter(player -> player.getView() != null).forEach(player -> player.getView().close());
         if (getPlayers().stream()
                 .filter(player -> player.getActor().getImpact() == PacmanImpact.Pacman)
                 .anyMatch(player -> player.getActor().isAlive())

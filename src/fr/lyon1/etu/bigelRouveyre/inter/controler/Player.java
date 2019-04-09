@@ -88,6 +88,11 @@ public interface Player {
     void onDeath(Actor actor);
 
     /**
+     * Called when this lose.
+     */
+    void onLose();
+
+    /**
      * Called when a listened {@link Actor} moves
      * @param actor the {@link Actor} that just moves
      */
@@ -104,6 +109,11 @@ public interface Player {
      * @param player the removed {@link Player}
      */
     void onPlayerRemoved(Player player);
+
+    /**
+     * Called when this win.
+     */
+    void onWin();
 
     /**
      * @param actor the new {@link Actor} to drive
