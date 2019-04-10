@@ -52,7 +52,7 @@ public class Launcher extends Application {
             gameInit = new PacmanGame(new LoaderGenerator("map.txt"), 20, 4, PacmanTheme.Normal);
         }
         catch (IOException | URISyntaxException e) {
-            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 20, 4, PacmanTheme.Zombie);
+            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 30, 6, PacmanTheme.Water);
             e.printStackTrace();
         }
 
