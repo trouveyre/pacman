@@ -1,24 +1,25 @@
 package fr.lyon1.etu.bigelRouveyre.pacman.view.javafx;
 
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.ActorPicture;
+import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanTheme;
 import javafx.scene.image.Image;
 
 public class PacmanPicture extends ActorPicture {
 
-    public static final Image IMAGE_FOOD = new Image("asset/block.png", SIZE, SIZE, true, true);
-    public static final Image IMAGE_GHOST = new Image("asset/Boo_block.png", SIZE, SIZE, true, true);
-    public static final Image IMAGE_PACMAN = new Image("asset/pacman.png", SIZE, SIZE, true, true);
-
-    public static ActorPicture food() {
-        return new ActorPicture(IMAGE_FOOD);
+    public static PacmanPicture food(PacmanTheme theme) {
+        return new PacmanPicture(theme.getFoodImage());
     }
 
-    public static ActorPicture ghost() {
-        return new ActorPicture(IMAGE_GHOST);
+    public static PacmanPicture ghost(PacmanTheme theme) {
+        return new PacmanPicture(theme.getRandomGhostImage());
     }
 
-    public static ActorPicture pacman() {
-        return new ActorPicture(IMAGE_PACMAN);
+    public static PacmanPicture pacman(PacmanTheme theme) {
+        return new PacmanPicture(theme.getPacmanImage());
+    }
+
+    public static PacmanPicture wall(PacmanTheme theme) {
+        return new PacmanPicture(theme.getWallImage());
     }
 
     //CONSTRUCTORS

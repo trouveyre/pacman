@@ -2,20 +2,21 @@ package fr.lyon1.etu.bigelRouveyre.core.model;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Coordinates;
-import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LoaderGenerator implements Generator {
+public class LoaderGenerator extends BaseGenerator {
 
     //CONSTRUCTORS
-    public LoaderGenerator(String map) throws IOException {
-        this.map = Files.readAllLines(Paths.get(map));
+    public LoaderGenerator(String map) throws IOException, URISyntaxException {
+        super();
+        this.map = Files.readAllLines(Paths.get("map/" + map));
     }
 
     //FIELDS
@@ -30,7 +31,7 @@ public class LoaderGenerator implements Generator {
             for (int j=0; j<row.length(); j++) {
                 char c = row.charAt(i);
                 if (c == 'x')
-                    result.addAt(StandardCoordinates.twoDimensions(i, j), StandardActor.wall());
+                    result.addAt(StandardCoordinates.twoDimensions(i, j), getPrototype().clone());
             }
         }
         return result;

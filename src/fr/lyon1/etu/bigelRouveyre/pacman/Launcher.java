@@ -3,7 +3,9 @@ package fr.lyon1.etu.bigelRouveyre.pacman;
 import fr.lyon1.etu.bigelRouveyre.core.model.*;
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.ScoresView;
 import fr.lyon1.etu.bigelRouveyre.inter.model.GameResult;
+import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanActor;
 import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanGame;
+import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanTheme;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Launcher extends Application {
 
@@ -46,11 +49,11 @@ public class Launcher extends Application {
     public void onClickOnPlay() {
         PacmanGame gameInit;
         try {
-            gameInit = new PacmanGame(new LoaderGenerator("map/map0.txt"), 15, 4);
+            gameInit = new PacmanGame(new LoaderGenerator("map.txt"), 20, 4, PacmanTheme.Normal);
         }
-        catch (IOException ioe) {
-            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 15, 4);
-            ioe.printStackTrace();
+        catch (IOException | URISyntaxException e) {
+            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 20, 4, PacmanTheme.Zombie);
+            e.printStackTrace();
         }
 
         PacmanGame game = gameInit;

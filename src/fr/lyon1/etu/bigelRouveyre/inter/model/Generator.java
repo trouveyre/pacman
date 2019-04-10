@@ -20,6 +20,16 @@ public interface Generator {
     Set<Coordinates> freeCases();
 
     /**
+     * @return the {@link Actor} used as wall
+     */
+    Actor getPrototype();
+
+    /**
+     * @param prototype the {@link Actor} to use as wall
+     */
+    void setPrototype(Actor prototype);
+
+    /**
      * @return a {@link Set} of {@link Coordinates} that will always be filled as wall
      */
     Set<Coordinates> wallCases();

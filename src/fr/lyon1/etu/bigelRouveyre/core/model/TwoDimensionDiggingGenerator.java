@@ -2,25 +2,25 @@ package fr.lyon1.etu.bigelRouveyre.core.model;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Coordinates;
-import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TwoDimensionDiggingGenerator implements Generator {
+public class TwoDimensionDiggingGenerator extends BaseGenerator {
 
     //CONSTRUCTORS
     public TwoDimensionDiggingGenerator(int nbRows, int nbColumns) {
+        super();
         sizes[0] = nbRows;
         sizes[1] = nbColumns;
     }
 
     //FIELDS
     private int borderSize = 0;
-    private double diggingCoefficient = 0.5;
-    private int inertia = 10;
+    private double diggingCoefficient = 0.6;
+    private int inertia = 20;
     private int[] sizes = new int[2];
 
     //METHODS
@@ -32,7 +32,7 @@ public class TwoDimensionDiggingGenerator implements Generator {
 
         for (int i=0;i<result.getSizes()[0];i++) {
             for (int j = 0; j < result.getSizes()[1]; j++)
-                StandardActor.wall().beBornAt(result, StandardCoordinates.twoDimensions(i, j));
+                getPrototype().clone().beBornAt(result, StandardCoordinates.twoDimensions(i, j));
         }
 
         freeCases().forEach(freeCase -> result.removeAllAt(freeCase));

@@ -1,6 +1,5 @@
 package fr.lyon1.etu.bigelRouveyre.core.model;
 
-import fr.lyon1.etu.bigelRouveyre.core.view.javafx.ActorPicture;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
 import fr.lyon1.etu.bigelRouveyre.inter.model.*;
 import fr.lyon1.etu.bigelRouveyre.inter.view.Drawable;
@@ -9,14 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StandardActor implements Actor, Cloneable {
-
-    public static Actor wall() {
-        Actor result = new StandardActor();
-        result.setPicture(ActorPicture.wall());
-        result.setMoving(TwoDimensionMovingType.Rooted);
-        result.setImpact(ImpactType.Solid);
-        return result;
-    }
 
     //CONSTRUCTORS
 

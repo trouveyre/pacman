@@ -11,14 +11,17 @@ import fr.lyon1.etu.bigelRouveyre.pacman.controler.PacmanPlayer;
 public class PacmanGame extends BaseGame {
 
     //CONSTRUCTORS
-    public PacmanGame(Generator generator, int nbFoods, int nbGhosts) {
+    public PacmanGame(Generator generator, int nbFoods, int nbGhosts, PacmanTheme theme) {
         super();
+        this.theme = theme;
+        generator.setPrototype(PacmanActor.wall(theme));
         build(generator);
-        initiate(new RandomPacmanInitiator(nbFoods, nbGhosts));
+        initiate(new RandomPacmanInitiator(nbFoods, nbGhosts, theme));
     }
 
     //FIELDS
     private LocalView view = null;
+    private PacmanTheme theme;
 
     //METHODS
     public LocalView getLocalView() {
@@ -35,7 +38,7 @@ public class PacmanGame extends BaseGame {
 
     public RandomPlayer newGhost() {
         return new RandomPlayer(BasePlayer.randomName(),
-                PacmanActor.ghost(),
+                PacmanActor.ghost(theme),
                 -getBoard().getSizes()[0],
                 -getBoard().getSizes()[1],
                 getBoard().getSizes()[0]*2,
@@ -46,7 +49,7 @@ public class PacmanGame extends BaseGame {
     public PacmanPlayer newPacman(String name, String leftKey, String upKey, String rightKey, String downKey) {
         PacmanPlayer result = new PacmanPlayer(name, leftKey, upKey, rightKey, downKey);
         result.setGame(this);
-        result.setActor(PacmanActor.pacman());
+        result.setActor(PacmanActor.pacman(theme));
         if (view == null) view = (LocalView) result.getView();
         else result.setView(view);
         return result;

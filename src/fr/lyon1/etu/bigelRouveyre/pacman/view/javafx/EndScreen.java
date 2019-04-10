@@ -1,6 +1,7 @@
 package fr.lyon1.etu.bigelRouveyre.pacman.view.javafx;
 
 import fr.lyon1.etu.bigelRouveyre.inter.view.View;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -9,12 +9,6 @@ public class ActorPicture extends ImageView implements Drawable<LocalView>, Clon
 
     public static final int SIZE = 52;
 
-    public static final Image IMAGE_WALL = new Image("asset/wall_black.png", SIZE, SIZE, true, true);
-
-    public static ActorPicture wall() {
-        return new ActorPicture(IMAGE_WALL);
-    }
-
     //CONSTRUCTORS
     public ActorPicture(String asset) {
         this(new Image(asset, SIZE, SIZE, true, true));

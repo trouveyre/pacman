@@ -7,14 +7,16 @@ import java.util.ArrayList;
 public class RandomPacmanInitiator implements Initiator<PacmanGame> {
 
     //CONSTRUCTORS
-    public RandomPacmanInitiator(int nbPoints, int nbGhosts) {
+    public RandomPacmanInitiator(int nbPoints, int nbGhosts, PacmanTheme theme) {
         this.nbPoints = nbPoints;
         this.nbGhosts = nbGhosts;
+        this.theme = theme;
     }
 
     //FIELDS
     private int nbGhosts;
     private int nbPoints;
+    private PacmanTheme theme;
 
     //METHODS
     @Override
@@ -25,7 +27,7 @@ public class RandomPacmanInitiator implements Initiator<PacmanGame> {
         ArrayList<Actor> actors = new ArrayList<>();
         game.getPlayers().forEach(player -> actors.add(player.getActor()));
         for (int i=0; i<nbPoints; i++)
-            actors.add(PacmanActor.food());
+            actors.add(PacmanActor.food(theme));
 
         ArrayList<Coordinates> spawnCases = new ArrayList<>(game.getBoard().spawns());
 
