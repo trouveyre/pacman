@@ -42,14 +42,27 @@ public class Launcher extends Application {
         Button playButton = (Button) rootPane.lookup("#playButton");
         playButton.setOnAction((event) -> onClickOnPlay());
 
+        Spinner<Integer> pacgums = (Spinner<Integer>) rootPane.lookup("#pacgums");
+        pacgums.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 10));
+
         ChoiceBox<String> themeMenu = (ChoiceBox<String>) rootPane.lookup("#themeMenu");
         themeMenu.getItems().addAll("normal", "water", "zombie");
+        themeMenu.valueProperty().setValue("normal");
     }
 
     public void onClickOnPlay() {
+        TextField mapPath = (TextField) rootPane.lookup("#mapPath");
+        String map = mapPath.getText();
+        Slider boardHeight = (Slider) (rootPane.lookup("#boardHeight"));
+        int height = (int) boardHeight.getValue();
+        Slider boardWidth = (Slider) (rootPane.lookup("#boardWidth"));
+        int width = (int) boardWidth.getValue();
+
         Slider slider = (Slider) (rootPane.lookup("#nbPlayersSlider"));
         Slider ghostsSlider = (Slider) (rootPane.lookup("#nbGhostsSlider"));
         int nbGhosts = (int) ghostsSlider.valueProperty().get();
+        Spinner<Integer> pacgums = (Spinner<Integer>) rootPane.lookup("#pacgums");
+        int nbPacgums = pacgums.getValue();
         ChoiceBox<String> themeMenu = (ChoiceBox<String>) rootPane.lookup("#themeMenu");
         PacmanTheme theme = PacmanTheme.Normal;
         switch (themeMenu.getValue()) {
@@ -66,10 +79,10 @@ public class Launcher extends Application {
 
         PacmanGame gameInit;
         try {
-            gameInit = new PacmanGame(new LoaderGenerator("map.txt"), 20, nbGhosts, theme);
+            gameInit = new PacmanGame(new LoaderGenerator(map + ".txt"), nbPacgums, nbGhosts, theme);
         }
         catch (IOException | URISyntaxException e) {
-            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(18, 12), 30, nbGhosts, theme);
+            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(height, width), nbPacgums, nbGhosts, theme);
             e.printStackTrace();
         }
 

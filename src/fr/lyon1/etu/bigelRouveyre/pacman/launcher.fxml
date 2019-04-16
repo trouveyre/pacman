@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane alignment="CENTER" collapsible="false" prefHeight="400.0" prefWidth="600.0" text="PAC MAN" textFill="#7c7213" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TitledPane alignment="CENTER" collapsible="false" prefHeight="400.0" prefWidth="600.0" text="PACMAN" textFill="#7c7213" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -26,23 +28,55 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="576.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox prefHeight="200.0" prefWidth="576.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <VBox prefHeight="200.0" prefWidth="296.0">
                            <children>
-                              <Label text="players     " />
-                              <Slider fx:id="nbPlayersSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="players     " />
+                                    <Slider fx:id="nbPlayersSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="ghosts     " />
+                                    <Slider fx:id="nbGhostsSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="pacgums  " />
+                                    <Spinner fx:id="pacgums" editable="true" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="theme       " />
+                                    <ChoiceBox fx:id="themeMenu" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="282.0">
                            <children>
-                              <Label text="ghosts     " />
-                              <Slider fx:id="nbGhostsSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="map :                  " />
+                                    <TextField fx:id="mapPath" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="board sizes :  " />
+                                    <Slider fx:id="boardHeight" blockIncrement="1.0" majorTickUnit="1.0" max="20.0" min="10.0" minorTickCount="0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" />
+                                    <Slider fx:id="boardWidth" blockIncrement="1.0" majorTickUnit="1.0" max="20.0" min="10.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <ChoiceBox fx:id="themeMenu" prefWidth="150.0" />
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children></AnchorPane>
          </bottom>
          <top>
