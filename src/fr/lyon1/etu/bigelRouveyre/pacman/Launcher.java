@@ -10,6 +10,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,6 +50,9 @@ public class Launcher extends Application {
         ChoiceBox<String> themeMenu = (ChoiceBox<String>) rootPane.lookup("#themeMenu");
         themeMenu.getItems().addAll("normal", "water", "zombie");
         themeMenu.valueProperty().setValue("normal");
+
+        ImageView background = (ImageView) rootPane.lookup("#background");
+        background.setImage(new Image("asset/pacmanWallpaper.jpg"));
     }
 
     public void onClickOnPlay() {
