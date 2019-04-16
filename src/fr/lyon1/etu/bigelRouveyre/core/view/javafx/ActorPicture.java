@@ -42,6 +42,6 @@ public class ActorPicture extends ImageView implements Drawable<LocalView>, Clon
     @Override
     public void draw(LocalView view, double x, double y) {
         if (view != null)
-            Platform.runLater(() -> view.addImageView((int) y, (int) x, this));
+            Platform.runLater(() -> view.addImageView((int) x, (int) y, this));
     }
 }

@@ -16,10 +16,10 @@ public class LocalPlayer extends BasePlayer {
     public LocalPlayer(String name, String leftKey, String upKey, String rightKey, String downKey) {
         super(name);
         shortcuts = new HashMap<>();
-        shortcuts.put(leftKey, (coordinates) -> StandardCoordinates.twoDimensions(coordinates.get()[0], -100));
-        shortcuts.put(upKey, (coordinates) -> StandardCoordinates.twoDimensions(-100, coordinates.get()[1]));
-        shortcuts.put(rightKey, (coordinates) -> StandardCoordinates.twoDimensions(coordinates.get()[0], 100));
-        shortcuts.put(downKey, (coordinates) -> StandardCoordinates.twoDimensions(100, coordinates.get()[1]));
+        shortcuts.put(leftKey, (coordinates) -> StandardCoordinates.twoDimensions(-100, coordinates.get()[1]));
+        shortcuts.put(upKey, (coordinates) -> StandardCoordinates.twoDimensions(coordinates.get()[0], -100));
+        shortcuts.put(rightKey, (coordinates) -> StandardCoordinates.twoDimensions(100, coordinates.get()[1]));
+        shortcuts.put(downKey, (coordinates) -> StandardCoordinates.twoDimensions(coordinates.get()[0], 100));
     }
 
     //FIELDS

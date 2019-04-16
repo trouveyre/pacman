@@ -2,6 +2,7 @@ package fr.lyon1.etu.bigelRouveyre.core.model;
 
 import fr.lyon1.etu.bigelRouveyre.inter.model.Board;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Coordinates;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

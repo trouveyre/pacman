@@ -3,16 +3,13 @@ package fr.lyon1.etu.bigelRouveyre.pacman;
 import fr.lyon1.etu.bigelRouveyre.core.model.*;
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.ScoresView;
 import fr.lyon1.etu.bigelRouveyre.inter.model.GameResult;
-import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanActor;
 import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanGame;
 import fr.lyon1.etu.bigelRouveyre.pacman.model.PacmanTheme;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,21 +41,42 @@ public class Launcher extends Application {
 
         Button playButton = (Button) rootPane.lookup("#playButton");
         playButton.setOnAction((event) -> onClickOnPlay());
+
+        ChoiceBox<String> themeMenu = (ChoiceBox<String>) rootPane.lookup("#themeMenu");
+        themeMenu.getItems().addAll("normal", "water", "zombie");
     }
 
     public void onClickOnPlay() {
+        Slider slider = (Slider) (rootPane.lookup("#nbPlayersSlider"));
+        Slider ghostsSlider = (Slider) (rootPane.lookup("#nbGhostsSlider"));
+        int nbGhosts = (int) ghostsSlider.valueProperty().get();
+        ChoiceBox<String> themeMenu = (ChoiceBox<String>) rootPane.lookup("#themeMenu");
+        PacmanTheme theme = PacmanTheme.Normal;
+        switch (themeMenu.getValue()) {
+            case "normal":
+                theme = PacmanTheme.Normal;
+                break;
+            case "water":
+                theme = PacmanTheme.Water;
+                break;
+            case "zombie":
+                theme = PacmanTheme.Zombie;
+                break;
+        }
+
         PacmanGame gameInit;
         try {
-            gameInit = new PacmanGame(new LoaderGenerator("map.txt"), 20, 4, PacmanTheme.Normal);
+            gameInit = new PacmanGame(new LoaderGenerator("map.txt"), 20, nbGhosts, theme);
         }
         catch (IOException | URISyntaxException e) {
-            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(17, 17), 30, 6, PacmanTheme.Water);
+            gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(18, 12), 30, nbGhosts, theme);
             e.printStackTrace();
         }
 
         PacmanGame game = gameInit;
         game.newPacman("Mario", "q", "z", "d", "s");
-        game.newPacman("Luigi", "k", "o", "m", "l");
+        if (slider.valueProperty().get() >= 2)
+            game.newPacman("Luigi", "k", "o", "m", "l");
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
