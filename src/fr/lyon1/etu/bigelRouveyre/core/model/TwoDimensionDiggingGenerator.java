@@ -19,8 +19,8 @@ public class TwoDimensionDiggingGenerator extends BaseGenerator {
 
     //FIELDS
     private int borderSize = 0;
-    private double diggingCoefficient = 0.5;
-    private int inertia = 15;
+    private double diggingCoefficient = 0.6;
+    private int inertia = 10;
     private int[] sizes = new int[2];
 
     //METHODS

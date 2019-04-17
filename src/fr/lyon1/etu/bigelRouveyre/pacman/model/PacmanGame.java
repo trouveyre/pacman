@@ -1,10 +1,11 @@
 package fr.lyon1.etu.bigelRouveyre.pacman.model;
 
 import fr.lyon1.etu.bigelRouveyre.core.controler.BasePlayer;
-import fr.lyon1.etu.bigelRouveyre.core.controler.RandomPlayer;
+import fr.lyon1.etu.bigelRouveyre.core.controler.HuntingPlayer;
 import fr.lyon1.etu.bigelRouveyre.core.model.BaseGame;
 import fr.lyon1.etu.bigelRouveyre.core.view.javafx.LocalView;
 import fr.lyon1.etu.bigelRouveyre.inter.controler.Player;
+import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
 import fr.lyon1.etu.bigelRouveyre.pacman.controler.PacmanPlayer;
 
@@ -36,20 +37,27 @@ public class PacmanGame extends BaseGame {
                         .noneMatch(player -> player.getActor().isAlive());
     }
 
-    public RandomPlayer newGhost() {
-        return new RandomPlayer(BasePlayer.randomName(),
-                PacmanActor.ghost(theme),
-                -getBoard().getSizes()[0],
-                -getBoard().getSizes()[1],
-                getBoard().getSizes()[0]*2,
-                getBoard().getSizes()[1]*2
-        );
+    public HuntingPlayer newGhost() {
+        HuntingPlayer result = new HuntingPlayer(BasePlayer.randomName(), PacmanActor.ghost(theme));
+        result.setPreys(getBoard().getActors().stream().filter(actor ->
+                actor.getImpact().equals(PacmanImpact.Pacman)
+        ).toArray(Actor[]::new));
+        return result;
     }
 
     public PacmanPlayer newPacman(String name, String leftKey, String upKey, String rightKey, String downKey) {
         PacmanPlayer result = new PacmanPlayer(name, leftKey, upKey, rightKey, downKey);
         result.setGame(this);
-        result.setActor(PacmanActor.pacman(theme));
+        Actor actor = PacmanActor.pacman(theme);
+        result.setActor(actor);
+        getPlayers().stream().filter(player -> player instanceof HuntingPlayer).forEach(player -> {
+            Actor[] oldPreys = ((HuntingPlayer) player).getPreys();
+            Actor[] newPreys = new Actor[oldPreys.length + 1];
+            for (int i=0; i<oldPreys.length; i++)
+                newPreys[i] = oldPreys[i];
+            newPreys[newPreys.length - 1] = actor;
+            ((HuntingPlayer) player).setPreys(newPreys);
+        });
         if (view == null) view = (LocalView) result.getView();
         else result.setView(view);
         return result;

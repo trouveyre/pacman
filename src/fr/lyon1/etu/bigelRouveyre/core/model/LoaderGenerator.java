@@ -15,7 +15,7 @@ import java.util.Set;
 public class LoaderGenerator extends BaseGenerator {
 
     //CONSTRUCTORS
-    public LoaderGenerator(String map) throws IOException, URISyntaxException {
+    public LoaderGenerator(String map) throws IOException {
         super();
         this.map = Files.readAllLines(Paths.get("map/" + map));
     }

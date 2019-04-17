@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class Launcher extends Application {
 
@@ -53,6 +52,9 @@ public class Launcher extends Application {
 
         ImageView background = (ImageView) rootPane.lookup("#background");
         background.setImage(new Image("asset/pacmanWallpaper.jpg"));
+
+        TextField mapPath = (TextField) rootPane.lookup("#mapPath");
+        mapPath.textProperty().set("map");
     }
 
     public void onClickOnPlay() {
@@ -86,7 +88,7 @@ public class Launcher extends Application {
         try {
             gameInit = new PacmanGame(new LoaderGenerator(map + ".txt"), nbPacgums, nbGhosts, theme);
         }
-        catch (IOException | URISyntaxException e) {
+        catch (IOException e) {
             gameInit = new PacmanGame(new TwoDimensionDiggingGenerator(height, width), nbPacgums, nbGhosts, theme);
             e.printStackTrace();
         }
