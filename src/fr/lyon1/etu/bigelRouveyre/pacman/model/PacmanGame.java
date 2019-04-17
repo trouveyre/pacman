@@ -9,6 +9,8 @@ import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Generator;
 import fr.lyon1.etu.bigelRouveyre.pacman.controler.PacmanPlayer;
 
+import java.util.stream.Collectors;
+
 public class PacmanGame extends BaseGame {
 
     //CONSTRUCTORS
@@ -41,7 +43,7 @@ public class PacmanGame extends BaseGame {
         HuntingPlayer result = new HuntingPlayer(BasePlayer.randomName(), PacmanActor.ghost(theme));
         result.setPreys(getBoard().getActors().stream().filter(actor ->
                 actor.getImpact().equals(PacmanImpact.Pacman)
-        ).toArray(Actor[]::new));
+        ).collect(Collectors.toList()));
         return result;
     }
 
@@ -50,14 +52,9 @@ public class PacmanGame extends BaseGame {
         result.setGame(this);
         Actor actor = PacmanActor.pacman(theme);
         result.setActor(actor);
-        getPlayers().stream().filter(player -> player instanceof HuntingPlayer).forEach(player -> {
-            Actor[] oldPreys = ((HuntingPlayer) player).getPreys();
-            Actor[] newPreys = new Actor[oldPreys.length + 1];
-            for (int i=0; i<oldPreys.length; i++)
-                newPreys[i] = oldPreys[i];
-            newPreys[newPreys.length - 1] = actor;
-            ((HuntingPlayer) player).setPreys(newPreys);
-        });
+        getPlayers().stream().filter(player -> player instanceof HuntingPlayer).forEach(player ->
+            ((HuntingPlayer) player).getPreys().add(actor)
+        );
         if (view == null) view = (LocalView) result.getView();
         else result.setView(view);
         return result;

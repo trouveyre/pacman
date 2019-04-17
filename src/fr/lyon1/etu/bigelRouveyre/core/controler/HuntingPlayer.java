@@ -3,6 +3,7 @@ package fr.lyon1.etu.bigelRouveyre.core.controler;
 import fr.lyon1.etu.bigelRouveyre.inter.model.Actor;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class HuntingPlayer extends BasePlayer {
 
@@ -10,14 +11,24 @@ public class HuntingPlayer extends BasePlayer {
     public HuntingPlayer(String name, Actor actor, Actor... preys) {
         super(name);
         setActor(actor);
-        this.preys = preys;
+        this.preys = Arrays.asList(preys);
     }
 
     //FIELDS
-    private Actor[] preys;
+    private List<Actor> preys;
 
     //METHODS
-    public Actor[] getPreys() {
+    private double distanceFrom(Actor actor) {
+        double result = 100;
+        if (actor.getCoordinates() != null)
+            result = Math.hypot(
+                    actor.getCoordinates().get()[0] - getActor().getCoordinates().get()[0],
+                    actor.getCoordinates().get()[1] - getActor().getCoordinates().get()[1]
+            );
+        return result;
+    }
+
+    public List<Actor> getPreys() {
         return preys;
     }
 
@@ -28,22 +39,20 @@ public class HuntingPlayer extends BasePlayer {
     public void onCommand(String command) {}
 
     @Override
-    protected void onDrive() {
-        if (getActor() == null || preys.length <= 0) return;
+    public void onDeath(Actor actor) {
+        super.onDeath(actor);
+        preys.remove(actor);
+    }
 
-        Actor prey = Arrays.stream(preys).filter(actor ->
-                actor.getCoordinates() != null
-        ).reduce(preys[0], (actor1, actor2) -> {
-            double distance1 = Math.hypot(
-                    actor1.getCoordinates().get()[0] - getActor().getCoordinates().get()[0],
-                    actor1.getCoordinates().get()[1] - getActor().getCoordinates().get()[1]
-            );
-            double distance2 = Math.hypot(
-                    actor2.getCoordinates().get()[0] - getActor().getCoordinates().get()[0],
-                    actor2.getCoordinates().get()[1] - getActor().getCoordinates().get()[1]
-            );
-            if (distance1 < distance2) return actor1;
-            else return actor2;
+    @Override
+    protected void onDrive() {
+        if (getActor() == null || preys.size() <= 0) return;
+
+        Actor prey = preys.stream().reduce(preys.get(0), (actor1, actor2) -> {
+            if (distanceFrom(actor1) < distanceFrom(actor2))
+                return actor1;
+            else
+                return actor2;
         });
 
         if (prey != null && prey.getCoordinates() != null)
@@ -56,7 +65,7 @@ public class HuntingPlayer extends BasePlayer {
     @Override
     public void onWin() {}
 
-    public void setPreys(Actor[] preys) {
+    public void setPreys(List<Actor> preys) {
         this.preys = preys;
     }
 }
